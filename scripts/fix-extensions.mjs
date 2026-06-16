@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -15,11 +15,34 @@ function walk(dir) {
   return results;
 }
 
+function resolveImport(fromFile, importPath) {
+  if (!importPath.startsWith(".")) return null;
+  if (importPath.endsWith(".js")) return null;
+
+  const baseDir = dirname(fromFile);
+  const asFile = join(baseDir, `${importPath}.js`);
+  const asIndex = join(baseDir, importPath, "index.js");
+
+  if (existsSync(asFile)) return `${importPath}.js`;
+  if (existsSync(asIndex)) return `${importPath}/index.js`;
+  return null;
+}
+
 for (const file of walk(distDir)) {
   let content = readFileSync(file, "utf-8");
+  let modified = false;
+
   content = content.replace(
     /from\s+"(\.\.?\/[^"]+?)"/g,
-    (match, p) => (p.endsWith(".js") ? match : `from "${p}.js"`),
+    (match, p) => {
+      const resolved = resolveImport(file, p);
+      if (resolved) {
+        modified = true;
+        return `from "${resolved}"`;
+      }
+      return match;
+    },
   );
-  writeFileSync(file, content);
+
+  if (modified) writeFileSync(file, content);
 }

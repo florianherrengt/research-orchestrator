@@ -10,7 +10,7 @@ export { createExtractPageContentTool, extractPageContent } from "./tools/extrac
 export { createResearchPlanTool } from "./tools/research-plan.js";
 export { createResearchCheckpointTool } from "./tools/research-checkpoint.js";
 export { createFactsCheckTool } from "./tools/facts-check.js";
-export { createSearchTools } from "./tools/search.js";
+export { createSearchTools } from "./tools/search/index.js";
 export { createBraveSearchTool } from "./tools/search/brave.js";
 export { createExaSearchTool } from "./tools/search/exa.js";
 export { createSerperSearchTool } from "./tools/search/serper.js";

@@ -1,6 +1,6 @@
 import { questionsTool } from "./ask-questions.js";
 import { createDisambiguateTool } from "./disambiguate.js";
-import { createSearchTools } from "./search.js";
+import { createSearchTools } from "./search/index.js";
 import { createExtractPageContentTool } from "./extract-page-content.js";
 import { createResearchCheckpointTool } from "./research-checkpoint.js";
 import { createSequentialThinkingTool } from "./sequential-thinking.js";
