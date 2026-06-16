@@ -19,6 +19,7 @@ export function streamResearch(options) {
                     extraTools: options.extraTools,
                     evaluateStep: options.evaluateStep,
                     maxGuardRetries: options.maxGuardRetries,
+                    getProviderOptions: options.getProviderOptions,
                     onEvent: options.onEvent,
                     controller,
                 });

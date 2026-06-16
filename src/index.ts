@@ -66,6 +66,7 @@ export type {
   OrchestratorEvent,
   EvaluateStepFn,
   StreamResearchOptions,
+  ProviderOptionsCallback,
 } from "./types";
 
 export { validateUrl, isValidUrl, validateServiceUrl, isValidServiceUrl, UrlValidationError } from "./utils/url-validation";

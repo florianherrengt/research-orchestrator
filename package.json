@@ -1,6 +1,6 @@
 {
   "name": "research-orchestrator",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Reusable deep research agent orchestrator — agentic search loop with guardrails, extracted from Deep Search.",
   "type": "module",
   "main": "./dist/index.js",

@@ -17,7 +17,7 @@ import {
 } from "../guards/agent-guards";
 import { getActiveToolNamesForMessages } from "../guards/tool-call-requirements";
 import { createResearchTools } from "../tools/tool-registry";
-import type { SearchKeys, FetchFn, PageLoader, HiddenTextPredicate, OrchestratorEvent } from "../types";
+import type { SearchKeys, FetchFn, PageLoader, HiddenTextPredicate, OrchestratorEvent, ProviderOptionsCallback } from "../types";
 
 const MAX_GUARD_RETRIES = 2;
 
@@ -51,6 +51,7 @@ export function createGuardedStream({
   extraTools,
   evaluateStep,
   maxGuardRetries,
+  getProviderOptions,
   onEvent,
   controller,
 }: {
@@ -69,6 +70,7 @@ export function createGuardedStream({
     responseMessage: UIMessage;
   }) => GuardDecision<ToolSet>;
   maxGuardRetries?: Record<string, number>;
+  getProviderOptions?: ProviderOptionsCallback;
   onEvent?: (event: OrchestratorEvent) => void;
   controller: ReadableStreamDefaultController<UIMessageChunk>;
 }): Promise<void> {
@@ -114,6 +116,7 @@ export function createGuardedStream({
           abortSignal,
           controller,
           systemPrompt,
+          getProviderOptions,
         });
 
         if (lastFinish.usage) {
@@ -181,6 +184,7 @@ type RunAttemptParams = {
   abortSignal: AbortSignal | undefined;
   controller: ReadableStreamDefaultController<UIMessageChunk>;
   systemPrompt: string;
+  getProviderOptions?: ProviderOptionsCallback;
 };
 
 async function runAttempt(params: RunAttemptParams): Promise<AttemptFinish> {
@@ -219,6 +223,7 @@ async function runAttemptOnce({
   abortSignal,
   controller,
   systemPrompt: effectiveSystemPrompt,
+  getProviderOptions,
 }: RunAttemptParams): Promise<AttemptFinish> {
   let finish: AttemptFinish | undefined;
   const result = streamText({
@@ -229,6 +234,9 @@ async function runAttemptOnce({
     activeTools: activeTools.length > 0 ? activeTools : undefined,
     toolChoice,
     abortSignal,
+    providerOptions: getProviderOptions
+      ? getProviderOptions({ model, toolChoice })
+      : undefined,
   });
   const stream = result.toUIMessageStream<UIMessage>({
     originalMessages,

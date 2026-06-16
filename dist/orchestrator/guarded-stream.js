@@ -8,7 +8,7 @@ const DEFAULT_MAX_RETRIES_PER_GUARD = {
     research_checkpoint: MAX_GUARD_RETRIES,
     tool_call_requirement: MAX_GUARD_RETRIES,
 };
-export function createGuardedStream({ model, messages, abortSignal, fetchFn, searchKeys, pageLoader, systemPrompt, isHiddenText, tools: prebuiltTools, extraTools, evaluateStep, maxGuardRetries, onEvent, controller, }) {
+export function createGuardedStream({ model, messages, abortSignal, fetchFn, searchKeys, pageLoader, systemPrompt, isHiddenText, tools: prebuiltTools, extraTools, evaluateStep, maxGuardRetries, getProviderOptions, onEvent, controller, }) {
     return (async () => {
         const effectiveMaxRetries = { ...DEFAULT_MAX_RETRIES_PER_GUARD, ...maxGuardRetries };
         const retries = {};
@@ -43,6 +43,7 @@ export function createGuardedStream({ model, messages, abortSignal, fetchFn, sea
                     abortSignal,
                     controller,
                     systemPrompt,
+                    getProviderOptions,
                 });
                 if (lastFinish.usage) {
                     writeTokenUsageEvent(controller, lastFinish.usage, onEvent);
@@ -111,7 +112,7 @@ function isForcedToolChoiceUnsupported(error) {
     return ((message.includes("tool_choice") || message.includes("tool choice")) &&
         (message.includes("thinking") || message.includes("reasoning")));
 }
-async function runAttemptOnce({ model, tools, messages, activeTools, toolChoice, originalMessages, sendStart, abortSignal, controller, systemPrompt: effectiveSystemPrompt, }) {
+async function runAttemptOnce({ model, tools, messages, activeTools, toolChoice, originalMessages, sendStart, abortSignal, controller, systemPrompt: effectiveSystemPrompt, getProviderOptions, }) {
     let finish;
     const result = streamText({
         model,
@@ -121,6 +122,9 @@ async function runAttemptOnce({ model, tools, messages, activeTools, toolChoice,
         activeTools: activeTools.length > 0 ? activeTools : undefined,
         toolChoice,
         abortSignal,
+        providerOptions: getProviderOptions
+            ? getProviderOptions({ model, toolChoice })
+            : undefined,
     });
     const stream = result.toUIMessageStream({
         originalMessages,

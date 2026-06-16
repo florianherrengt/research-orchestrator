@@ -23,6 +23,7 @@ export function streamResearch(options: StreamResearchOptions): ReadableStream<U
           extraTools: options.extraTools,
           evaluateStep: options.evaluateStep,
           maxGuardRetries: options.maxGuardRetries,
+          getProviderOptions: options.getProviderOptions,
           onEvent: options.onEvent,
           controller,
         });

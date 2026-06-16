@@ -23,7 +23,7 @@ export { DEFAULT_SYSTEM_PROMPT } from "./prompts/system-prompt";
 export { RESEARCH_PLANNER_PROMPT } from "./prompts/research-planner-prompt";
 export { TOOL_NAMES } from "./tool-names";
 export type { ToolName } from "./tool-names";
-export type { SearchKeys, FetchFn, PageLoader, HiddenTextPredicate, OrchestratorEvent, EvaluateStepFn, StreamResearchOptions, } from "./types";
+export type { SearchKeys, FetchFn, PageLoader, HiddenTextPredicate, OrchestratorEvent, EvaluateStepFn, StreamResearchOptions, ProviderOptionsCallback, } from "./types";
 export { validateUrl, isValidUrl, validateServiceUrl, isValidServiceUrl, UrlValidationError } from "./utils/url-validation";
 export { isAbortError, throwIfAborted, abortablePromise, abortableDelay } from "./utils/abort";
 //# sourceMappingURL=index.d.ts.map

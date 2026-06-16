@@ -1,6 +1,12 @@
-import type { LanguageModel, ToolSet, UIMessage, UIMessageChunk } from "ai";
+import type { LanguageModel, ToolSet, ToolChoice, UIMessage } from "ai";
 import type { PageLoader as SearchExtractPageLoader } from "@deep-search/search-extract";
 import type { GuardDecision } from "./guards/agent-guards";
+
+export type ProviderOptionsCallback = (params: {
+  model: LanguageModel;
+  toolChoice: ToolChoice<ToolSet> | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+}) => Record<string, Record<string, any>> | undefined;
 
 export interface SearchKeys {
   braveApiKey?: string;
@@ -40,4 +46,5 @@ export interface StreamResearchOptions {
   extraTools?: ToolSet;
   evaluateStep?: EvaluateStepFn;
   maxGuardRetries?: Record<string, number>;
+  getProviderOptions?: ProviderOptionsCallback;
 }

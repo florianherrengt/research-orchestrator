@@ -1,7 +1,7 @@
 import { type LanguageModel, type ToolSet, type UIMessage, type UIMessageChunk } from "ai";
 import { type GuardDecision } from "../guards/agent-guards";
-import type { SearchKeys, FetchFn, PageLoader, HiddenTextPredicate, OrchestratorEvent } from "../types";
-export declare function createGuardedStream({ model, messages, abortSignal, fetchFn, searchKeys, pageLoader, systemPrompt, isHiddenText, tools: prebuiltTools, extraTools, evaluateStep, maxGuardRetries, onEvent, controller, }: {
+import type { SearchKeys, FetchFn, PageLoader, HiddenTextPredicate, OrchestratorEvent, ProviderOptionsCallback } from "../types";
+export declare function createGuardedStream({ model, messages, abortSignal, fetchFn, searchKeys, pageLoader, systemPrompt, isHiddenText, tools: prebuiltTools, extraTools, evaluateStep, maxGuardRetries, getProviderOptions, onEvent, controller, }: {
     model: LanguageModel;
     messages: UIMessage[];
     abortSignal?: AbortSignal;
@@ -17,6 +17,7 @@ export declare function createGuardedStream({ model, messages, abortSignal, fetc
         responseMessage: UIMessage;
     }) => GuardDecision<ToolSet>;
     maxGuardRetries?: Record<string, number>;
+    getProviderOptions?: ProviderOptionsCallback;
     onEvent?: (event: OrchestratorEvent) => void;
     controller: ReadableStreamDefaultController<UIMessageChunk>;
 }): Promise<void>;
