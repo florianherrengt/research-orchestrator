@@ -1,6 +1,6 @@
 import { generateText, tool, zodSchema } from "ai";
 import { z } from "zod";
-import { extractPageContent } from "./extract-page-content";
+import { extractPageContent } from "./extract-page-content.js";
 const URL_PATTERN = /https?:\/\/[^\s)\]>"')]+/g;
 function extractUrls(text) {
     const matches = text.match(URL_PATTERN);

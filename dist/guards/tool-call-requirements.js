@@ -1,5 +1,5 @@
 import { isToolUIPart, } from "ai";
-import { TOOL_NAMES } from "../tool-names";
+import { TOOL_NAMES } from "../tool-names.js";
 export const TOOL_CALL_REQUIREMENTS = {
     [TOOL_NAMES.create_research_plan]: {
         requiredPreviousTools: [TOOL_NAMES.ask_questions],

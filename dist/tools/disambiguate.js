@@ -1,6 +1,6 @@
 import { tool, zodSchema } from "ai";
 import { z } from "zod";
-import { rateLimit } from "../utils/rate-limit";
+import { rateLimit } from "../utils/rate-limit.js";
 const API_URL = "https://api.duckduckgo.com/";
 const MAX_RELATED_TOPICS = 8;
 const OptionalStringSchema = z.string().nullable().optional();

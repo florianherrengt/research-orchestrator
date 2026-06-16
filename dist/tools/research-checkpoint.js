@@ -1,5 +1,5 @@
 import { generateText, tool, zodSchema } from "ai";
-import { researchCheckpointInputSchema, researchCheckpointResultSchema, reviewResearchCheckpoint, } from "../guards/agent-guards";
+import { researchCheckpointInputSchema, researchCheckpointResultSchema, reviewResearchCheckpoint, } from "../guards/agent-guards.js";
 export function createResearchCheckpointTool(model) {
     return tool({
         description: "Get plain-text research quality guidance before finalizing a researched answer. Include searches run, opened sources, verified claims, unresolved questions, confidence, and readiness. The result is advisory guidance, not an approval or rejection.",

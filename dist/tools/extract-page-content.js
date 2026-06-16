@@ -1,7 +1,7 @@
 import { tool, zodSchema, streamText } from "ai";
 import { z } from "zod";
-import { isAbortError } from "../utils/abort";
-import { validateUrl, UrlValidationError } from "../utils/url-validation";
+import { isAbortError } from "../utils/abort.js";
+import { validateUrl, UrlValidationError } from "../utils/url-validation.js";
 import { sanitizeHtml, extractVisibleTextFromHtml, createSearchExtractEngine, RedditExtractor, AmazonExtractor, ShopifyExtractor, } from "@deep-search/search-extract";
 let _engine = null;
 function getEngine(fetchFn, pageLoader) {

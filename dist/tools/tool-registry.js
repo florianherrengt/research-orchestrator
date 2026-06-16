@@ -1,12 +1,12 @@
-import { questionsTool } from "./ask-questions";
-import { createDisambiguateTool } from "./disambiguate";
-import { createSearchTools } from "./search";
-import { createExtractPageContentTool } from "./extract-page-content";
-import { createResearchCheckpointTool } from "./research-checkpoint";
-import { createSequentialThinkingTool } from "./sequential-thinking";
-import { createResearchPlanTool } from "./research-plan";
-import { createFactsCheckTool } from "./facts-check";
-import { applyToolCallRequirementSafeguards } from "../guards/tool-call-requirements";
+import { questionsTool } from "./ask-questions.js";
+import { createDisambiguateTool } from "./disambiguate.js";
+import { createSearchTools } from "./search.js";
+import { createExtractPageContentTool } from "./extract-page-content.js";
+import { createResearchCheckpointTool } from "./research-checkpoint.js";
+import { createSequentialThinkingTool } from "./sequential-thinking.js";
+import { createResearchPlanTool } from "./research-plan.js";
+import { createFactsCheckTool } from "./facts-check.js";
+import { applyToolCallRequirementSafeguards } from "../guards/tool-call-requirements.js";
 export async function createResearchTools(config) {
     const { model, fetchFn, searchKeys, pageLoader } = config;
     const searchTools = createSearchTools(searchKeys, fetchFn);

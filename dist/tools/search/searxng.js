@@ -1,4 +1,4 @@
-import { validateServiceUrl } from "../../utils/url-validation";
+import { validateServiceUrl } from "../../utils/url-validation.js";
 import { createSearchExtractEngine, createAiSdkSearchTool, searchQueryInputSchema, } from "@deep-search/search-extract";
 const DEFAULT_BASE_URL = "http://localhost:8080";
 export const searxngSearchInputSchema = searchQueryInputSchema;

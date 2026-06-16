@@ -1,6 +1,6 @@
 import { streamText, tool, zodSchema } from "ai";
 import { z } from "zod";
-import { RESEARCH_PLANNER_PROMPT } from "../prompts/research-planner-prompt";
+import { RESEARCH_PLANNER_PROMPT } from "../prompts/research-planner-prompt.js";
 export const researchPlanInputSchema = z.object({
     query: z.string().min(1).describe("The user's research question or request"),
 });

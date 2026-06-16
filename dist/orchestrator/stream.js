@@ -1,5 +1,5 @@
-import { createGuardedStream } from "./guarded-stream";
-import { DEFAULT_SYSTEM_PROMPT } from "../prompts/system-prompt";
+import { createGuardedStream } from "./guarded-stream.js";
+import { DEFAULT_SYSTEM_PROMPT } from "../prompts/system-prompt.js";
 export function streamResearch(options) {
     const fetchFn = options.fetch ?? globalThis.fetch.bind(globalThis);
     const systemPrompt = options.systemPrompt ?? DEFAULT_SYSTEM_PROMPT;

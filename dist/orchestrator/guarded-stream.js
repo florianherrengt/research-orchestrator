@@ -1,7 +1,7 @@
 import { streamText, convertToModelMessages, isToolUIPart, } from "ai";
-import { evaluateAssistantStep, } from "../guards/agent-guards";
-import { getActiveToolNamesForMessages } from "../guards/tool-call-requirements";
-import { createResearchTools } from "../tools/tool-registry";
+import { evaluateAssistantStep, } from "../guards/agent-guards.js";
+import { getActiveToolNamesForMessages } from "../guards/tool-call-requirements.js";
+import { createResearchTools } from "../tools/tool-registry.js";
 const MAX_GUARD_RETRIES = 2;
 const DEFAULT_MAX_RETRIES_PER_GUARD = {
     question_tool: MAX_GUARD_RETRIES,

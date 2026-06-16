@@ -1,9 +1,9 @@
-import { createBraveSearchTool } from "./brave";
-import { createExaSearchTool } from "./exa";
-import { createSerperSearchTool } from "./serper";
-import { createTavilySearchTool } from "./tavily";
-import { createSearXNGSearchTool } from "./searxng";
-import { isValidServiceUrl } from "../../utils/url-validation";
+import { createBraveSearchTool } from "./brave.js";
+import { createExaSearchTool } from "./exa.js";
+import { createSerperSearchTool } from "./serper.js";
+import { createTavilySearchTool } from "./tavily.js";
+import { createSearXNGSearchTool } from "./searxng.js";
+import { isValidServiceUrl } from "../../utils/url-validation.js";
 export function createSearchTools(searchKeys, fetchFn) {
     const tools = {};
     if (searchKeys?.braveApiKey) {

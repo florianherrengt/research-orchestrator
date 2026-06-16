@@ -1,7 +1,7 @@
 import { isToolUIPart, } from "ai";
 import { z } from "zod";
-import { evaluateToolCallRequirementForResponse, } from "./tool-call-requirements";
-import { TOOL_NAMES } from "../tool-names";
+import { evaluateToolCallRequirementForResponse, } from "./tool-call-requirements.js";
+import { TOOL_NAMES } from "../tool-names.js";
 export const guardrailEventSchema = z.object({
     kind: z.enum([
         "question_tool",
