@@ -25,17 +25,25 @@ export interface ExtractOptions {
 }
 
 let _engine: SearchExtractEngine | null = null;
+let _engineFetch: typeof globalThis.fetch | null = null;
+let _enginePageLoader: PageLoader | undefined;
 
 function getEngine(
   fetchFn: typeof globalThis.fetch,
   pageLoader?: PageLoader,
 ): SearchExtractEngine {
-  if (!_engine) {
+  if (
+    !_engine ||
+    _engineFetch !== fetchFn ||
+    _enginePageLoader !== pageLoader
+  ) {
     _engine = createSearchExtractEngine({
       fetch: fetchFn,
       pageLoader,
       extractors: [new RedditExtractor(), new AmazonExtractor(), new ShopifyExtractor()],
     });
+    _engineFetch = fetchFn;
+    _enginePageLoader = pageLoader;
   }
   return _engine;
 }

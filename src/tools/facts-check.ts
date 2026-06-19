@@ -1,6 +1,7 @@
 import { generateText, tool, zodSchema, type LanguageModel } from "ai";
 import { z } from "zod";
 import { extractPageContent } from "./extract-page-content";
+import type { FetchFn, PageLoader } from "../types";
 
 const URL_PATTERN = /https?:\/\/[^\s)\]>"')]+/g;
 
@@ -25,6 +26,11 @@ export const factsCheckInputSchema = z.object({
     ),
 });
 
+export interface CreateFactsCheckToolConfig {
+  fetchFn?: FetchFn;
+  pageLoader?: PageLoader;
+}
+
 const FACTS_CHECK_SYSTEM = `You are a fact-checking assistant. You will receive:
 1. A research answer that contains factual claims and source URLs.
 2. The content extracted from each cited source.
@@ -45,7 +51,10 @@ If all checked claims are confirmed, say so. If something is wrong or unsupporte
 
 Return plain text, not JSON.`;
 
-export function createFactsCheckTool(model: LanguageModel) {
+export function createFactsCheckTool(
+  model: LanguageModel,
+  config: CreateFactsCheckToolConfig = {},
+) {
   return tool({
     description:
       "Call this before giving the final answer. It extracts source URLs from the research text, opens each one, and checks whether the high-risk factual claims are supported by those sources.",
@@ -66,6 +75,8 @@ export function createFactsCheckTool(model: LanguageModel) {
           const content = await extractPageContent({
             url,
             summarize: false,
+            fetchFn: config.fetchFn,
+            pageLoader: config.pageLoader,
             abortSignal: options?.abortSignal,
           });
           return { url, content };

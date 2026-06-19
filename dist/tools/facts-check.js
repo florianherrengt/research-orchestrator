@@ -37,7 +37,7 @@ For each claim you check, state:
 If all checked claims are confirmed, say so. If something is wrong or unsupported, state the incorrect claim, the corrected information, and the basis for the correction. If a source could not be fetched, say so explicitly.
 
 Return plain text, not JSON.`;
-export function createFactsCheckTool(model) {
+export function createFactsCheckTool(model, config = {}) {
     return tool({
         description: "Call this before giving the final answer. It extracts source URLs from the research text, opens each one, and checks whether the high-risk factual claims are supported by those sources.",
         strict: true,
@@ -52,6 +52,8 @@ export function createFactsCheckTool(model) {
                 const content = await extractPageContent({
                     url,
                     summarize: false,
+                    fetchFn: config.fetchFn,
+                    pageLoader: config.pageLoader,
                     abortSignal: options?.abortSignal,
                 });
                 return { url, content };

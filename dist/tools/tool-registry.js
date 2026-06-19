@@ -18,7 +18,7 @@ export async function createResearchTools(config) {
         research_checkpoint: createResearchCheckpointTool(model),
         sequential_thinking: createSequentialThinkingTool(),
         create_research_plan: createResearchPlanTool(model),
-        facts_check: createFactsCheckTool(model),
+        facts_check: createFactsCheckTool(model, { fetchFn, pageLoader }),
     };
     return applyToolCallRequirementSafeguards(tools);
 }

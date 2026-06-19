@@ -4,13 +4,19 @@ import { isAbortError } from "../utils/abort.js";
 import { validateUrl, UrlValidationError } from "../utils/url-validation.js";
 import { sanitizeHtml, extractVisibleTextFromHtml, createSearchExtractEngine, RedditExtractor, AmazonExtractor, ShopifyExtractor, } from "@deep-search/search-extract";
 let _engine = null;
+let _engineFetch = null;
+let _enginePageLoader;
 function getEngine(fetchFn, pageLoader) {
-    if (!_engine) {
+    if (!_engine ||
+        _engineFetch !== fetchFn ||
+        _enginePageLoader !== pageLoader) {
         _engine = createSearchExtractEngine({
             fetch: fetchFn,
             pageLoader,
             extractors: [new RedditExtractor(), new AmazonExtractor(), new ShopifyExtractor()],
         });
+        _engineFetch = fetchFn;
+        _enginePageLoader = pageLoader;
     }
     return _engine;
 }

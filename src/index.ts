@@ -45,6 +45,7 @@ export { createExtractPageContentTool, extractPageContent } from "./tools/extrac
 export { createResearchPlanTool } from "./tools/research-plan";
 export { createResearchCheckpointTool } from "./tools/research-checkpoint";
 export { createFactsCheckTool } from "./tools/facts-check";
+export type { CreateFactsCheckToolConfig } from "./tools/facts-check";
 export { createSearchTools } from "./tools/search";
 export { createBraveSearchTool } from "./tools/search/brave";
 export { createExaSearchTool } from "./tools/search/exa";
